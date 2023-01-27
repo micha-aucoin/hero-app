@@ -1,0 +1,38 @@
+name: CI hero-app
+on: push
+  # push:
+  #   branches: [main]
+
+jobs:
+  run-hero-action:
+    runs-on: ubuntu-latest
+    container: ghcr.io/pychal/hero-image:sha-ee677b9
+    services:
+      heroes_pg:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: heroes_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      heroes_pg_tests:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: heroes_db_tests
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: view files
+        run: |
+          mv example.env .env
+          ls -la
