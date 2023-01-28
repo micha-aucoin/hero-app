@@ -1,38 +1,62 @@
 name: CI hero-app
-on: push
-  # push:
-  #   branches: [main]
+on:
+  push:
+    branches: [main]
 
 jobs:
   run-hero-action:
     runs-on: ubuntu-latest
-    container: ghcr.io/pychal/hero-image:sha-ee677b9
-    services:
-      heroes_pg:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: heroes_db
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      heroes_pg_tests:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: heroes_db_tests
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
 
     steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
       - uses: actions/checkout@v3
-      - name: view files
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      #----------------------------------------------
+      #  create postgres database and env file
+      #----------------------------------------------  
+      - name: run postgresql database
         run: |
           mv example.env .env
-          ls -la
+          docker run --name heroes-pg -d -e POSTGRESQL_PASSWORD=thepass123 -p 5432:5432 bitnami/postgresql:13
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.1.13
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+      #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      #----------------------------------------------
+      # install your root project, if required
+      #----------------------------------------------
+      - name: Install project
+        run: poetry install --no-interaction
+      #----------------------------------------------
+      #   conncet to database and run test suite
+      #----------------------------------------------
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          alembic upgrade head
+          coverage run -m  pytest && coverage report -m
