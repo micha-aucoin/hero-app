@@ -25,6 +25,7 @@ target_metadata.naming_convention = {
 }
 
 from app.heroes.models import Hero  # noqa: 'autogenerate' support
+from app.quotes.models import Quotes  # noqa: 'autogenerate' support
 
 exclude_tables = loads(os.getenv("DB_EXCLUDE_TABLES"))
 
