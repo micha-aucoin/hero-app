@@ -1,5 +1,5 @@
 # Hero
-FastAPI is a popular package nowadays so [Learn More](https://medium.com/@estretyakov/the-ultimate-async-setup-fastapi-sqlmodel-alembic-pytest)
+FastAPI is a popular package nowadays so [Learn More](https://medium.com/@estretyakov/the-ultimate-async-setup-fastapi-sqlmodel-alembic-pytest-ae5cdcfed3d4)
 
 ## Dependencies
 Here is a short description of python packages used in the article (just to make a whole picture to save your time):
