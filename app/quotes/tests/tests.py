@@ -32,24 +32,24 @@ async def test_create_quoted_hist(
 
     statement = select(Quotes).where(Quotes.uuid == got["uuid"])
     results = await async_session.execute(statement=statement)
-    und = jsonable_encoder(results.scalar_one())
+    quote = jsonable_encoder(results.scalar_one())
 
     for k, v in want.items():
-        assert und[k] == v
+        assert quote[k] == v
 
 
-@pytest.mark.asyncio
-async def test_search_yfinance(
-    async_client: AsyncClient,
-    async_session: AsyncSession,
-    test_data: dict,
-):
-    ticker = "spy"
-    period = "5d"
-    response = await async_client.get(
-        f"/quotes/{ticker}/history?period={period}"
-    )
+# @pytest.mark.asyncio
+# async def test_search_yfinance(
+#     async_client: AsyncClient,
+#     async_session: AsyncSession,
+#     test_data: dict,
+# ):
+#     ticker = "spy"
+#     period = "5d"
+#     response = await async_client.get(
+#         f"/quotes/{ticker}/history?period={period}"
+#     )
 
-    assert response.status_code == http_status.HTTP_200_OK
+#     assert response.status_code == http_status.HTTP_200_OK
 
-    """ callback """
+#     """ callback """

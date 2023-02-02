@@ -10,7 +10,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.quotes.models import Quotes, QuotesCreate
 
 
-class QuotesCRUDY:
+class QuotesCRUD:
     def __init__(self, session: AsyncSession):
         self.session = session
 
