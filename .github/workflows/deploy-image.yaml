@@ -15,8 +15,6 @@ jobs:
     services:
       hero-pg:
         image: postgres
-        env:
-          POSTGRES_PASSWORD: thepass123
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -62,4 +60,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            POSTGRES_SERVER=hero-pg
+            POSTGRES_SERVER='hero-pg'
