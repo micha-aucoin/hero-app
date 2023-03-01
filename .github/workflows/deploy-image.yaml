@@ -47,10 +47,12 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        env:
+          POSTGRES_SERVER: $(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' heroes-pg)
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            POSTGRES_SERVER="$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' heroes-pg)"
+            POSTGRES_SERVER=$POSTGRES_SERVER
