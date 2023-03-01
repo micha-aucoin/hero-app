@@ -38,7 +38,7 @@ RUN poetry config virtualenvs.create false \
 COPY . /vyce-backend
 
 RUN touch .env
-RUN bash docker-env-entrypoint-dev
+RUN bash docker-env-entrypoint
 
 RUN alembic upgrade head
 
