@@ -29,11 +29,9 @@ jobs:
         run: |
           docker run --name heroes-pg -d -e POSTGRESQL_PASSWORD=thepass123 -p 5432:5432 bitnami/postgresql:13
 
-      - name: echo variable
-        env:
-          POSTGRES_SERVER: docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' heroes-pg
+      - name: find ip
         run: |
-          echo ${POSTGRES_SERVER}
+          docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' heroes-pg
 
       # - name: Log in to the Container registry
       #   uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
