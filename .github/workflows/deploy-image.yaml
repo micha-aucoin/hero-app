@@ -14,9 +14,9 @@ jobs:
 
     services:
       hero-pg:
-        image: bitnami/postgresql:13
+        image: postgres
         env:
-          POSTGRESQL_PASSWORD: thepass123
+          POSTGRES_PASSWORD: thepass123
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
