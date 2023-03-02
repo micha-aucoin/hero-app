@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heroes-pg-deployment
+  labels:
+    app: heroes-pg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: heroes-pg
+  template:
+    metadata:
+      labels:
+        app: heroes-pg
+    spec:
+      containers:
+        - name: heroes-pg
+          image: bitnami/postgresql:13
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRESQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: heroes-pg-secret
+                  key: postgresql-username
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: heroes-pg-secret
+                  key: postgresql-password
+            - name: POSTGRESQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: heroes-pg-configmap
+                  key: database
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: heroes-pg-service
+spec:
+  selector:
+    app: heroes-pg
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

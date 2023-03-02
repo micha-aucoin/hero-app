@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-# write the .env config
+# config .env
 { \
     echo API_V1_PREFIX="$API_V1_PREFIX"; \
     echo DEBUG="$DEBUG"; \

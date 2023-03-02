@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: heroes-pg-configmap
+data:
+  database_url: heroes-pg-service
+  database: heroes_db
