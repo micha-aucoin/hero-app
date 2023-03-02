@@ -1,4 +1,5 @@
-name: CI hero-app
+name: Test hero-app
+
 on:
   push:
     branches: [main]
