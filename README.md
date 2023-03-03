@@ -22,7 +22,7 @@ And this command to start container: `docker run -d -p "8080:80" --name hero-app
 
 
 -[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) - download the Kubernetes command line interface on local machine to communicate with cluster
-   download kubeconfig file from cloud provider and and save it to the $KUBECONFIG environment variable: `export KUBECONFIG=~/Downloads/kubedonfig.yaml`
+   - download kubeconfig file from cloud provider and and save it to the $KUBECONFIG environment variable: `export KUBECONFIG=~/Downloads/kubedonfig.yaml`
 
 ### working on it
 -[Tekton Pipeline](https://tekton.dev/docs/pipelines/install/) - install Tekton Pipelines onto the Kubernetes cluster
