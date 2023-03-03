@@ -1,5 +1,5 @@
 # Hero
-read the article describing the setup [here](https://medium.com/@estretyakov/the-ultimate-async-setup-fastapi-sqlmodel-alembic-pytest-ae5cdcfed3d4)
+The article [here](https://medium.com/@estretyakov/the-ultimate-async-setup-fastapi-sqlmodel-alembic-pytest-ae5cdcfed3d4) gives a detailed description of developing an asynchronous web app with FastAPI and SQLModel. testing the database and API routes are covered using the Pytest library.
 
 ## Dependencies
 Here is a short description of python packages used in the article (just to make a whole picture to save your time):
@@ -21,10 +21,11 @@ Use this command to build Docker container: `docker build --build-arg ENV_FILE="
 And this command to start container: `docker run -d -p "8080:80" --name hero-app hero-app`
 
 ### kubernetes
--[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) - download the Kubernetes command line interface on local machine to communicate with cluster
+   - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) - download the Kubernetes command line interface on local machine to communicate with cluster
    - download kubeconfig file from cloud provider and and save it to the $KUBECONFIG environment variable: `export KUBECONFIG=~/Downloads/kubedonfig.yaml`
+   - 
 
-### working on it
+### Tekton
    - [Tekton Pipeline](https://tekton.dev/docs/pipelines/install/) - install Tekton Pipelines onto the Kubernetes cluster
    - [Tekton Triggers](https://tekton.dev/docs/triggers/install/) - install Tekton Triggers onto the Kubernetes cluster
    - [tkn](https://tekton.dev/docs/cli/) - intall Tekton CLI on local machine
