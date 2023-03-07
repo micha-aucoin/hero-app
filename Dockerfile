@@ -1,6 +1,6 @@
 FROM python:3.10-slim-buster
 
-ARG POSTGRES_SERVER
+# ARG POSTGRES_SERVER
 
 ENV API_V1_PREFIX="/api/v1" \
   DEBUG=True \
@@ -9,7 +9,7 @@ ENV API_V1_PREFIX="/api/v1" \
   DESCRIPTION="The API for Heroes app." \
   POSTGRES_USERNAME="postgres" \
   POSTGRES_PASSWORD="thepass123" \
-  POSTGRES_SERVER=${POSTGRES_SERVER} \
+  POSTGRES_SERVER='172.17.0.2' \
   POSTGRES_POART="5432" \
   POSTGRES_DATABASE="postgres" \
   POSTGRES_TEST_DATABASE="postgres-test" \
