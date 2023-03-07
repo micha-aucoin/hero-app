@@ -36,7 +36,7 @@ jobs:
       - name: run postgresql database
         run: |
           docker run --name heroes-pg -d -e POSTGRESQL_PASSWORD=thepass123 -p 5432:5432 bitnami/postgresql:13
-          echo "POSTGRES_SERVER=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' heroes-pg)" >> $GITHUB_ENV
+        # echo "POSTGRES_SERVER=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' heroes-pg)" >> $GITHUB_ENV
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -61,4 +61,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: POSTGRES_SERVER=${{ env.POSTGRES_SERVER }}
+          # build-args: POSTGRES_SERVER=${{ env.POSTGRES_SERVER }}
