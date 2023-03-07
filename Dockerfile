@@ -13,6 +13,8 @@ ENV API_V1_PREFIX="/api/v1" \
   POSTGRES_POART="5432" \
   POSTGRES_DATABASE="postgres" \
   POSTGRES_TEST_DATABASE="postgres-test" \
+  DB_ASYNC_CONNECTION_STR="postgresql+asyncpg://$POSTGRES_USERNAME:$POSTGRES_PASSWORD@$POSTGRES_SERVER:$POSTGRES_POART/$POSTGRES_DATABASE" \
+  DB_ASYNC_TEST_CONNECTION_STR="postgresql+asyncpg://$POSTGRES_USERNAME:$POSTGRES_PASSWORD@$POSTGRES_SERVER:$POSTGRES_POART/$POSTGRES_TEST_DATABASE" \
   DB_EXCLUDE_TABLES="[]" \
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -37,8 +39,8 @@ RUN poetry config virtualenvs.create false \
 # Creating folders, and files for a project:
 COPY . /vyce-backend
 
-RUN touch .env
-RUN bash docker-env-entrypoint
+# RUN touch .env
+# RUN bash docker-env-entrypoint
 
 RUN alembic upgrade head
 
