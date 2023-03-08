@@ -12,6 +12,7 @@ jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
 
+    #
     # services:
     #   hero-pg:
     #     image: postgres
@@ -24,6 +25,7 @@ jobs:
     #       --health-retries 5
     #     ports:
     #       - 5432:5432
+    #
 
     permissions:
       contents: read
