@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # config .env
@@ -14,3 +14,5 @@ set -e
 } > /vyce-backend/.env
 
 exec "$@"
+
+alembic upgrade head
