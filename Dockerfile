@@ -1,6 +1,5 @@
 FROM python:3.10-slim-buster
 
-# ARG POSTGRES_SERVER
 
 ENV API_V1_PREFIX="/api/v1" \
   DEBUG=True \
