@@ -14,5 +14,3 @@ set -e
 } > /vyce-backend/.env
 
 exec "$@"
-
-alembic upgrade head

@@ -36,10 +36,10 @@ RUN poetry config virtualenvs.create false \
 # Creating folders, and files for a project:
 COPY . /vyce-backend
 
-# RUN touch .env
-# RUN docker-env
+RUN chmod a+x /vyce-backend/docker-env-entrypoint
+RUN /vyce-backend/docker-env-entrypoint
 
-# RUN alembic upgrade head
+RUN alembic upgrade head
 
-ENTRYPOINT [ "./vyce-backend/docker-env-entrypoint" ]
+ENTRYPOINT [ "/vyce-backend/docker-env-entrypoint" ]
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
