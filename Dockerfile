@@ -11,7 +11,6 @@ ENV API_V1_PREFIX="/api/v1" \
   POSTGRES_SERVER='172.17.0.2' \
   POSTGRES_POART="5432" \
   POSTGRES_DATABASE="postgres" \
-  POSTGRES_TEST_DATABASE="postgres-test" \
   DB_EXCLUDE_TABLES="[]" \
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -37,9 +36,6 @@ RUN poetry config virtualenvs.create false \
 COPY . /vyce-backend
 
 RUN chmod a+x /vyce-backend/docker-env-entrypoint
-RUN /vyce-backend/docker-env-entrypoint
-
-RUN alembic upgrade head
 
 ENTRYPOINT [ "/vyce-backend/docker-env-entrypoint" ]
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# config .env
+# config .env and connect to database
 { \
     echo API_V1_PREFIX="$API_V1_PREFIX"; \
     echo DEBUG="$DEBUG"; \
@@ -9,8 +9,9 @@ set -e
     echo VERSION="$VERSION"; \
     echo DESCRIPTION="$DESCRIPTION"; \
     echo DB_ASYNC_CONNECTION_STR="postgresql+asyncpg://$POSTGRES_USERNAME:$POSTGRES_PASSWORD@$POSTGRES_SERVER:$POSTGRES_POART/$POSTGRES_DATABASE"; \
-    echo DB_ASYNC_TEST_CONNECTION_STR="postgresql+asyncpg://$POSTGRES_USERNAME:$POSTGRES_PASSWORD@$POSTGRES_SERVER:$POSTGRES_POART/$POSTGRES_TEST_DATABASE"; \
     echo DB_EXCLUDE_TABLES="$DB_EXCLUDE_TABLES"; \
 } > /vyce-backend/.env
+
+alembic upgrade head
 
 exec "$@"
