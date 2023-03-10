@@ -17,14 +17,24 @@ Here is a short description of python packages used in the article (just to make
    with the SQLAlchemy Database Toolkit for Python.
 
 ## Deployment
-And this command to start container: `docker run -d -p "8080:80" --name hero-app ghcr.io/micha-aucoin/hero-app:sha-< id # >`
+start database container: 
+```
+$ docker run --name heroes-pg -d \
+   -e POSTGRESQL_USERNAME=hero \
+   -e POSTGRESQL_PASSWORD=heroPass123 \
+   -e POSTGRESQL_USERNAME=heroes_db \
+   -p 5432:5432 \
+   bitnami/postgresql:13
+```
+---
+And this command to start app: 
+```
+$ docker run --name app-hero -d \
+   -e POSTGRES_USERNAME=hero \
+   -e POSTGRES_PASSWORD=heroPass123 \
+   -e POSTGRES_DATABASE=heroes_db \
+   -p 8080:80 \
+   ghcr.io/micha-aucoin/hero-app:sha-1319c62
+```
+>view the app [here](http://localhost:8080/docs)
 
-### kubernetes
-   - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) - download the Kubernetes command line interface on local machine to communicate with cluster
-   - download kubeconfig file from cloud provider and and save it to the $KUBECONFIG environment variable: `export KUBECONFIG=~/Downloads/kubedonfig.yaml`
-   - 
-
-### Tekton
-   - [Tekton Pipeline](https://tekton.dev/docs/pipelines/install/) - install Tekton Pipelines onto the Kubernetes cluster
-   - [Tekton Triggers](https://tekton.dev/docs/triggers/install/) - install Tekton Triggers onto the Kubernetes cluster
-   - [tkn](https://tekton.dev/docs/cli/) - intall Tekton CLI on local machine
