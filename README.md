@@ -22,7 +22,7 @@ start database container:
 $ docker run --name heroes-pg -d \
    -e POSTGRESQL_USERNAME=hero \
    -e POSTGRESQL_PASSWORD=heroPass123 \
-   -e POSTGRESQL_USERNAME=heroes_db \
+   -e POSTGRESQL_DATABASE=heroes_db \
    -p 5432:5432 \
    bitnami/postgresql:13
 ```
