@@ -18,23 +18,36 @@ Here is a short description of python packages used in the article (just to make
 
 ## Deployment
 start database container: 
-```
-$ docker run --name heroes-pg -d \
+```console
+docker run --name heroes-pg -d \
    -e POSTGRESQL_USERNAME=hero \
    -e POSTGRESQL_PASSWORD=heroPass123 \
    -e POSTGRESQL_DATABASE=heroes_db \
    -p 5432:5432 \
    bitnami/postgresql:13
 ```
----
-And this command to start app: 
+```console
+POSTGRES_HOST=$(docker inspect heroes-pg | jq -r .[0].NetworkSettings.IPAddress)
 ```
-$ docker run --name app-hero -d \
+- `POSTGRES_HOST` stores the ip address of the postgres container
+- you'll need to install [jq](https://stedolan.github.io/jq/download/) if you haven't already
+<br/><br/>
+---
+build the app container:
+```console
+docker build -t app-hero .
+```
+And this command to start app: 
+```console
+docker run --name app-hero -d \
    -e POSTGRES_USERNAME=hero \
    -e POSTGRES_PASSWORD=heroPass123 \
    -e POSTGRES_DATABASE=heroes_db \
+   -e POSTGRES_HOST=$POSTGRES_HOST \
    -p 8080:80 \
-   ghcr.io/micha-aucoin/hero-app:sha-1319c62
+   app-hero:latest
 ```
+<br/>
+
 >view the app [here](http://localhost:8080/docs)
 
