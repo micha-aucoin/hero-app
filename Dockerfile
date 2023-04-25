@@ -20,6 +20,8 @@ ENV API_V1_PREFIX="/api/v1" \
   PIP_DEFAULT_TIMEOUT=100 \
   POETRY_VERSION=1.1.13
 
+RUN ls -la
+
 # System deps:
 RUN pip install "poetry==$POETRY_VERSION"
 
