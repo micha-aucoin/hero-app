@@ -27,7 +27,7 @@ RUN pip install "poetry==$POETRY_VERSION"
 
 # Copy only requirements to cache them in docker layer
 WORKDIR /vyce-backend
-COPY poetry.lock pyproject.toml /vyce-backend/
+ADD poetry.lock pyproject.toml /vyce-backend/
 
 
 # Project initialization:
