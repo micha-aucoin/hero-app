@@ -20,14 +20,12 @@ ENV API_V1_PREFIX="/api/v1" \
   PIP_DEFAULT_TIMEOUT=100 \
   POETRY_VERSION=1.1.13
 
-RUN ls -la
-
 # System deps:
 RUN pip install "poetry==$POETRY_VERSION"
 
 # Copy only requirements to cache them in docker layer
 WORKDIR /vyce-backend
-ADD poetry.lock pyproject.toml /vyce-backend/
+COPY poetry.lock pyproject.toml /vyce-backend/
 
 
 # Project initialization:
