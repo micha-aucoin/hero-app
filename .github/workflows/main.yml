@@ -22,7 +22,15 @@ jobs:
       - name: run postgresql database
         run: |
           mv example.env .env
-          docker run --name heroes-pg -d -e POSTGRESQL_PASSWORD=thepass123 -p 5432:5432 bitnami/postgresql:13
+          docker run --name heroes-pg -d \
+            -e POSTGRESQL_USERNAME=hero \
+            -e POSTGRESQL_PASSWORD=heroPass123 \
+            -e POSTGRESQL_DATABASE=heroes_db \
+            bitnami/postgresql:13
+      - name: Update .env with container IP
+        run: |
+          CONTAINER_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' heroes-pg)
+          sed -i "s|heroes-pg|$CONTAINER_IP|" .env
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------

@@ -17,41 +17,18 @@ Here is a short description of python packages used in the article (just to make
    with the SQLAlchemy Database Toolkit for Python.
 
 ---
-<br/><br/>
+
 ## Deployment
-start database container: 
+start the app:
 ```console
-docker run --name heroes-pg -d \
-   -e POSTGRESQL_USERNAME=hero \
-   -e POSTGRESQL_PASSWORD=heroPass123 \
-   -e POSTGRESQL_DATABASE=heroes_db \
-   -p 5432:5432 \
-   bitnami/postgresql:13
+docker compose up -d
 ```
+- view the app [here](http://localhost:8080/docs)
 
-build the app container:
+clean up:
 ```console
-docker build -t app-hero .
+docker compose down
 ```
-install jq:
-```console
-sudo apt install jq
-```
-And this command to start app: 
-```console
-docker run --name app-hero -d \
-   -e POSTGRES_USERNAME=hero \
-   -e POSTGRES_PASSWORD=heroPass123 \
-   -e POSTGRES_DATABASE=heroes_db \
-   -e POSTGRES_HOST=$(docker inspect heroes-pg | jq -r .[0].NetworkSettings.IPAddress) \
-   -p 8080:80 \
-   app-hero:latest
-```
-- `POSTGRES_HOST` - is the IP address of the database container
-<br/>
-
->view the app [here](http://localhost:8080/docs)
-
 ---
 <br/><br/>
 ## (SAST) SonarQube

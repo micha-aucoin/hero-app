@@ -1,0 +1,35 @@
+services:
+  hero-app:
+    build: .
+    image: hero-app
+    container_name: hero-app
+    env_file:
+      - example.env
+    ports:
+      - "8080:80"
+    networks:
+      - hero-net
+    depends_on:
+      heroes-pg:
+        condition: service_healthy
+
+  heroes-pg:
+    image: bitnami/postgresql:13
+    container_name: heroes-pg
+    environment:
+      - POSTGRESQL_USERNAME=hero
+      - POSTGRESQL_PASSWORD=heroPass123
+      - POSTGRESQL_DATABASE=heroes_db
+    ports:
+      - "5432:5432"
+    networks:
+      - hero-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U hero -d heroes_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  hero-net:
+    name: hero-net
