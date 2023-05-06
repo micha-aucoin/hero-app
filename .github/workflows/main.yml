@@ -25,7 +25,7 @@ jobs:
           docker run --name heroes-pg -d \
             -e POSTGRESQL_USERNAME=hero \
             -e POSTGRESQL_PASSWORD=heroPass123 \
-            -e POSTGRESQL_DATABASE=heroes_db_test \
+            -e POSTGRESQL_DATABASE=heroes_db \
             bitnami/postgresql:13
       - name: Update .env with container IP
         run: |
