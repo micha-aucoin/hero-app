@@ -4,6 +4,7 @@ metadata:
   name: hero-app
   annotations:
     github.com/project-slug: micha-aucoin/hero-app
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: other
   lifecycle: unknown
