@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: hero-app
+  annotations:
+    github.com/project-slug: micha-aucoin/hero-app
+spec:
+  type: other
+  lifecycle: unknown
+  owner: hero
